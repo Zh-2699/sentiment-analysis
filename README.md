@@ -1,0 +1,2 @@
+# sentiment-analysis
+基于Vue.js前端框架和Flask后端框架的社交媒体情感分析与情绪预测系统
