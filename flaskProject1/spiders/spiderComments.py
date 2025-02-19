@@ -1,3 +1,6 @@
+''''
+spiderComments.py
+'''
 import random
 import time
 import requests
@@ -48,13 +51,9 @@ def writerRow(row, existing_data):
 # 获取微博数据
 def getCommentsData(url, params):
     headers = {
-        'Cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWm2Y1HFfkWlN0PLpZ_MOoT5JpX5KMhUgL.Fo-71heESheRS0B2dJLoI7DVwg_awg8X9g44; SINAGLOBAL=5508538758124.011.1735751090248; ULV=1736492224385:29:3:2:2445340372437.9253.1736492224286:1736330635505; XSRF-TOKEN=otVBp6IWWOX0l-zOxk8zbU8o; ALF=1739854460; SUB=_2A25KiPUsDeRhGeNO41ET9C3EzDiIHXVp5AjkrDV8PUJbkNANLUfnkW1NTttMbibjXFn0DnNIGjBn9OGZDV5JP7Gz; WBPSESS=0Hgcmu6MbMQzjQhdRMoliXGk8m6TOWklOqsGzR49K-zUspmopQhvzUSpXDDtw2ZZ63JZermirOz1Ak_DLWD3ESYSIq1WG6f1mTz2-RojUU0aFgWsl9qv7lDFwQvUW19lmCk01A0GddVHx3A5xPMihw==',
+        'Cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWm2Y1HFfkWlN0PLpZ_MOoT5JpX5KMhUgL.Fo-71heESheRS0B2dJLoI7DVwg_awg8X9g44; SINAGLOBAL=5508538758124.011.1735751090248; UOR=,,cn.bing.com; ULV=1738242752487:32:6:2:4009111466137.5938.1738242752443:1738053062851; XSRF-TOKEN=TUmE-L-IcFAR8Xfv7ZWuIaHY; ALF=1742557673; SUB=_2A25KsbS5DeRhGeNO41ET9C3EzDiIHXVpz0hxrDV8PUJbkNANLRnRkW1NTttMbpJhxDwT8klnHKxHrARZqVStFOyf; WBPSESS=0Hgcmu6MbMQzjQhdRMoliXGk8m6TOWklOqsGzR49K-zLt54XcQhBnjh1BUEMe9ws44uSIzVp2RcAWc0HBi6QcvWl2oJ2w90oP_eXV2IQ4aVxKSmVJtURUo-Aq1nljLUJMlf9058KsDPWy_4Sgj-GhQ==',
         # 替换为你的 Cookie
-        'User-Agent': choice([
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0',
-        ]),  # 随机 User-Agent
-        'Referer': 'https://weibo.com/',
-        'X-Requested-With': 'XMLHttpRequest'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
     try:
         time.sleep(random.uniform(1, 3))  # 随机延迟 1-3 秒
@@ -65,7 +64,7 @@ def getCommentsData(url, params):
             print(f"请求失败，状态码：{response.status_code}")
             return []
     except Exception as e:
-        print(f"请求异常：{e}")
+        print(f"article请求异常1：{e}")
         return []
 
 
@@ -84,7 +83,7 @@ def fetch_long_text(mblog_id):
         else:
             print(f"获取长文本失败，状态码：{response.status_code}")
     except Exception as e:
-        print(f"获取长文本异常：{e}")
+        print(f"获取长文本异常2：{e}")
     return None
 
 
@@ -92,7 +91,7 @@ def fetch_long_text(mblog_id):
 def get_article_details(mblog_id):
     url = f'https://weibo.com/ajax/statuses/show?id={str(mblog_id)}'
     headers = {
-        'Cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWm2Y1HFfkWlN0PLpZ_MOoT5JpX5KMhUgL.Fo-71heESheRS0B2dJLoI7DVwg_awg8X9g44; SINAGLOBAL=5508538758124.011.1735751090248; ULV=1736492224385:29:3:2:2445340372437.9253.1736492224286:1736330635505; XSRF-TOKEN=otVBp6IWWOX0l-zOxk8zbU8o; ALF=1739854460; SUB=_2A25KiPUsDeRhGeNO41ET9C3EzDiIHXVp5AjkrDV8PUJbkNANLUfnkW1NTttMbibjXFn0DnNIGjBn9OGZDV5JP7Gz; WBPSESS=0Hgcmu6MbMQzjQhdRMoliXGk8m6TOWklOqsGzR49K-zUspmopQhvzUSpXDDtw2ZZ63JZermirOz1Ak_DLWD3ESYSIq1WG6f1mTz2-RojUU0aFgWsl9qv7lDFwQvUW19lmCk01A0GddVHx3A5xPMihw==',
+        'Cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWm2Y1HFfkWlN0PLpZ_MOoT5JpX5KMhUgL.Fo-71heESheRS0B2dJLoI7DVwg_awg8X9g44; SINAGLOBAL=5508538758124.011.1735751090248; UOR=,,cn.bing.com; ULV=1738242752487:32:6:2:4009111466137.5938.1738242752443:1738053062851; XSRF-TOKEN=TUmE-L-IcFAR8Xfv7ZWuIaHY; ALF=1742557673; SUB=_2A25KsbS5DeRhGeNO41ET9C3EzDiIHXVpz0hxrDV8PUJbkNANLRnRkW1NTttMbpJhxDwT8klnHKxHrARZqVStFOyf; WBPSESS=0Hgcmu6MbMQzjQhdRMoliXGk8m6TOWklOqsGzR49K-zLt54XcQhBnjh1BUEMe9ws44uSIzVp2RcAWc0HBi6QcvWl2oJ2w90oP_eXV2IQ4aVxKSmVJtURUo-Aq1nljLUJMlf9058KsDPWy_4Sgj-GhQ==',
         # 替换为你的 Cookie
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
@@ -111,7 +110,7 @@ def get_article_details(mblog_id):
             return f"请求失败，状态码：{response.status_code}"
     except Exception as e:
         print(f"获取文章内容异常：{e}")
-        return f"请求异常：{e}"
+        return f"请求异常3：{e}"
 
 
 # 解析 JSON 数据
@@ -152,7 +151,7 @@ def parse_json(response, existing_data, articleId):
             ]
             writerRow(row, existing_data)
         except Exception as e:
-            print(f"解析异常：{e}")
+            print(f"解析异常4：{e}")
 
 
 # 获取导航类型列表

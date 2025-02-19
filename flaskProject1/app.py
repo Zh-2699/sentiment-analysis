@@ -114,28 +114,34 @@ def crawl_article_data():
         print(data)
         selected_group = data.get('group')
         if not selected_group:
-            return jsonify({'success': False, 'message':"未传递分组信息"}), 400
+            return jsonify({'success': False, 'message': "未传递分组信息"}), 400
 
-        #定义后台任务
+        # 定义后台任务
         def backGroundTask(group):
-            existingData = load_existing_data()
-            group_index = None
-            typeList = getAllTypeList()
-            # print(f"typeList: {typeList}")
-            for i, item in enumerate(typeList):
-                if item[0] == group:
-                    group_index = i
-                    break
-            print(f"group_index: {group_index}")
-            if group_index is not None:
-                main(typenum=group_index, pagenum=2)
+            try:
+                existingData = load_existing_data()
+                group_index = None
+                typeList = getAllTypeList()
+                for i, item in enumerate(typeList):
+                    if item[0] == group:
+                        group_index = i
+                        break
+                print(f"group_index: {group_index}")
+                if group_index is not None:
+                    main(typenum=group_index, pagenum=2)
+                    logging.info(f"爬虫任务完成：{group}")
+                else:
+                    logging.error(f"未找到分组：{group}")
+            except Exception as e:
+                logging.error(f"爬虫任务失败：{e}", exc_info=True)
 
         thread = Thread(target=backGroundTask, args=(selected_group,))
         thread.start()
 
-        return jsonify({'success': True, 'message':'爬虫任务已启动'}, ), 200
+        return jsonify({'success': True, 'message': '爬虫任务已启动'}), 200
     except Exception as e:
-        return jsonify({'success':'false', 'message':'爬虫任务失败'}), 500
+        logging.error(f"启动爬虫任务失败：{e}", exc_info=True)
+        return jsonify({'success': False, 'message': '爬虫任务启动失败'}), 500
 
 #根据id获取所有评论
 @app.route('/getcommentsById', methods=['POST'])
@@ -176,7 +182,7 @@ def get_comments():
         data = request.get_json()
         print(f"Request data: {data}")
 
-        page = data.get('page', 1)
+        page = data.get('page')
         per_page = 15 #先写死
 
         #查询数据库

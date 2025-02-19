@@ -52,17 +52,20 @@ export default {
     const router = useRouter()
 
     // 获取评论数据
-    const getComments = async (page = 1) => {
+    const getComments = async (page) => {
       try {
         loading.value = true;
+        console.log(page )
         const response = await axios.post('http://127.0.0.1:5000/getcomments', { page });
         const data = response.data;
+        console.log(data)
 
         if (data.success) {
           comments.value = data.comment_data;
           // console.log(comments.value)
           totalPages.value = data.total_pages;
           currentPage.value = data.current_page;
+          // console.log(totalPages.value - currentPage.value)
         } else {
           console.error("获取评论失败", data.message);
         }
@@ -124,7 +127,7 @@ export default {
     // 页面加载时获取评论数据
     onMounted(() => {
       const container = document.querySelector('.comments-container');
-      getComments(currentPage.value);
+      getComments(totalPages.value);
       container.addEventListener('scroll', handleScroll);
       
     });
